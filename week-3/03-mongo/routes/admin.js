@@ -12,8 +12,8 @@ router.post("/signup", (req, res) => {
   const password = req.body.password;
   //check if the user already exists
   Admin.create({
-    username,
-    password,
+    username: username,
+    password: password,
   }).then(() => {
     res.json({ msg: "Admin created successfully" });
   });
@@ -39,8 +39,12 @@ router.post("/courses", adminMiddleware, async (req, res) => {
   });
 });
 
-router.get("/courses", adminMiddleware, (req, res) => {
+router.get("/courses", adminMiddleware, async (req, res) => {
   // Implement fetching all courses logic
+  const response = await Course.find({});
+  res.status(200).json({
+    course: response,
+  });
 });
 
 module.exports = router;
