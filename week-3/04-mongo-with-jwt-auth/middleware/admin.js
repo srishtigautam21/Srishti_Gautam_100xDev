@@ -8,7 +8,7 @@ function adminMiddleware(req, res, next) {
   const token = req.headers.authorization;
   //token = 'Bearer asddbhdhd.hjjsjs"
   const jwtToken = token.split(" ")[1];
-  console.log(req.headers, jwtToken);
+  //   console.log(req.headers, jwtToken);
   const decodedValue = jwt.verify(jwtToken, JWT_SECRET);
   console.log(decodedValue, "decoded");
   if (decodedValue.username) {
