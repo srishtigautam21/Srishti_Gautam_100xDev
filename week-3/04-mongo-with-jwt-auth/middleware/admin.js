@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const secret = require("../index");
+const { JWT_SECRET } = require("../config");
 
 // Middleware for handling auth
 function adminMiddleware(req, res, next) {
@@ -7,8 +7,9 @@ function adminMiddleware(req, res, next) {
   // You need to check the headers and validate the admin from the admin DB. Check readme for the exact headers to be expected
   const token = req.headers.authorization;
   //token = 'Bearer asddbhdhd.hjjsjs"
-  const jwtToken = token.split(" ")[1].join("");
-  const decodedValue = jwt.verify(jwtToken, secret);
+  const jwtToken = token.split(" ")[1];
+  console.log(req.headers, jwtToken);
+  const decodedValue = jwt.verify(jwtToken, JWT_SECRET);
   console.log(decodedValue, "decoded");
   if (decodedValue.username) {
     next();
